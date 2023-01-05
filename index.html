@@ -1,8 +1,63 @@
-<form id="availability-form">
-  <label for="monday">Monday</label>
-  <input type="checkbox" id="monday" name="monday" value="Monday">
-  <label for="tuesday">Tuesday</label>
-  <input type="checkbox" id="tuesday" name="tuesday" value="Tuesday">
-  <!-- other days of the week -->
+<form id="availability-form" method="POST" action="/submit-availability">
+  <fieldset>
+    <legend>Select the days of the week that you are available:</legend>
+    <div>
+      <label for="monday">
+        <input type="checkbox" id="monday" name="availability" value="Monday" required>
+        Monday
+      </label>
+    </div>
+    <div>
+      <label for="tuesday">
+        <input type="checkbox" id="tuesday" name="availability" value="Tuesday" required>
+        Tuesday
+      </label>
+    </div>
+    <!-- other days of the week -->
+  </fieldset>
+  <br>
   <button type="submit">Submit</button>
 </form>
+<style>
+  .day-container {
+    margin: 10px 0;
+  }
+  .error-message {
+    color: red;
+    font-size: small;
+  }
+</style>
+
+<form id="availability-form" method="POST" action="/submit-availability">
+  <fieldset>
+    <legend>Select the days of the week that you are available:</legend>
+    <div class="day-container">
+      <label for="monday">
+        <input type="checkbox" id="monday" name="availability" value="Monday" required>
+        Monday
+      </label>
+    </div>
+    <div class="day-container">
+      <label for="tuesday">
+        <input type="checkbox" id="tuesday" name="availability" value="Tuesday" required>
+        Tuesday
+      </label>
+    </div>
+    <!-- other days of the week -->
+  </fieldset>
+  <br>
+  <button type="submit">Submit</button>
+  <div class="error-message">
+    Please select at least one day.
+  </div>
+</form>
+const form = document.getElementById('availability-form');
+const errorMessage = document.querySelector('.error-message');
+
+form.addEventListener('submit', (event) => {
+  const availability = form.elements.availability;
+  if (availability.length === 0) {
+    event.preventDefault();
+    errorMessage.style.display = 'block';
+  }
+});
